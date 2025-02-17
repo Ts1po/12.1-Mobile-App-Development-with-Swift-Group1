@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var euroAmount: String = ""
+    @State private var usdAmount: String = ""
     var body: some View {
         // Header
         HStack {
@@ -30,29 +32,20 @@ struct ContentView: View {
                 .padding(.top, 100)
                 .foregroundColor(.black)
         }
-        VStack {
-            TextField("Euro", text: .constant(""))
+        
+        HStack() {
+            Image("Euro-icon")
+                .resizable()
+                .frame(width: 60, height: 55)
+                .clipShape(RoundedRectangle(cornerRadius: 30))
+                .padding(.leading, 10)
+            
+            TextField("Euro", text: $euroAmount)
                 .padding()
-                .overlay(
-                    Image("Euro-icon")
-                                .resizable()
-                                .frame(width: 60, height: 55)
-                                .clipShape(RoundedRectangle(cornerRadius: 30))
-                                .padding(.leading, 0),
-                            alignment: .leading
-                )
-                .overlay (
-                            Text("EURO")
-                                .font(.system(size: 14))
-                                .foregroundColor(.gray)
-                                .padding(.leading, 100),
-                            alignment: .leading
-                )
                 .overlay(RoundedRectangle(cornerRadius: 30).stroke(Color("Border-color"), lineWidth: 1))
-                .frame(width: 310, height: 60)
-                .padding(.top, 22)
+                .frame(width: 250, height: 60)
+                .clipShape(RoundedRectangle(cornerRadius: 30))
         }
-
         // Dollar
         HStack {
             Text("Amount in Dollar")
@@ -61,31 +54,30 @@ struct ContentView: View {
                 .padding(.top, 133)
                 .foregroundColor(.black)
         }
-        VStack {
-            TextField("Dollar", text: .constant(""))
+
+        HStack() {
+            Image("Dollar-Icon")
+                .resizable()
+                .frame(width: 60, height: 55)
+                .clipShape(RoundedRectangle(cornerRadius: 30))
+                .padding(.leading, 10)
+            
+            TextField("Dollar", text: $usdAmount)
                 .padding()
-                .overlay(
-                    Image("Dollar-Icon")
-                                .resizable()
-                                .frame(width: 60, height: 55)
-                                .clipShape(RoundedRectangle(cornerRadius: 30))
-                                .padding(.leading, 0),
-                            alignment: .leading
-                )
-                .overlay (
-                            Text("DOLLAR")
-                                .font(.system(size: 14))
-                                .foregroundColor(.gray)
-                                .padding(.leading, 100),
-                            alignment: .leading
-                )
                 .overlay(RoundedRectangle(cornerRadius: 30).stroke(Color("Border-color"), lineWidth: 1))
-                .frame(width: 310, height: 60)
-                .padding(.top, 22)
+                .frame(width: 250, height: 60)
+                .clipShape(RoundedRectangle(cornerRadius: 30))
         }
+
         // convert button
         VStack {
-            Button(action: {}) {
+            Button(action: {
+                if let euro = Double(euroAmount) {
+                    usdAmount = String(converEuroToUsf(euro: euro))
+                } else if let usd = Double(usdAmount) {
+                    euroAmount = String(convertUsfToEuro(usf: usd))
+                }
+            }) {
                 Text("Convert")
                     .font(.system(size: 18, weight: .bold))
                     .foregroundColor(.white)
@@ -101,4 +93,14 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+}
+
+
+// convert functions
+func converEuroToUsf(euro: Double) -> Double {
+    return euro * 1.10
+}
+
+func convertUsfToEuro(usf: Double) -> Double {
+    return usf / 1.10
 }
