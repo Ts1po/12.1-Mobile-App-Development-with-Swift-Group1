@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "iPhone_16_Pro_Max_Natural_Titanium_PDP_Image_Position_1__ce-WW_ohmq-9x.jpg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
